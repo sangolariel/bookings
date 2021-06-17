@@ -15,3 +15,10 @@
 ```
 go run cmd/web/*.go
 ```
+
+## About soure code
+
+- Uses go 1.16
+- Use the [chi router](https://github.com/go-chi/chi)
+- Uses [alex edwards SCS](https://github.com/alexedwards/scs/v2)
+- Uses [nosuft](https://github.com/justinas/nosurf)
