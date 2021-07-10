@@ -157,8 +157,24 @@
   }
 
   function Prompt () {
-    const toast = () => {
-      console.log("toast")
+    const toast = (params) => {
+      const {icon = 'success', msg = '', position= 'top-end'} = params
+      const Toast = Swal.mixin({
+      toast: true,
+      position,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: icon,
+        title: msg,
+      })
     }
     const success = () => {
       console.log("success")
@@ -171,7 +187,7 @@
 
   document.getElementById('btn').addEventListener("click", function () {
     // notifyModal("Title", "<em>Hello world</em>",'success', 'Cool')
-    attention.toast();
+    attention.toast({msg: "Hello world"});
   })
 
   // Loop over them and prevent submission
