@@ -131,6 +131,7 @@
 (function () {
   'use strict'
 
+  const attention = Prompt();
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.querySelectorAll('.needs-validation')
 
@@ -155,8 +156,22 @@
     })
   }
 
+  function Prompt () {
+    const toast = () => {
+      console.log("toast")
+    }
+    const success = () => {
+      console.log("success")
+    }
+    return {
+      toast,
+      success
+    }
+  }
+
   document.getElementById('btn').addEventListener("click", function () {
-    notifyModal("Title", "<em>Hello world</em>",'success', 'Cool')
+    // notifyModal("Title", "<em>Hello world</em>",'success', 'Cool')
+    attention.toast();
   })
 
   // Loop over them and prevent submission
