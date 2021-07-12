@@ -58,3 +58,7 @@ func (m *Repository) Majors(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) Availablity(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, "search-availblity.page.tmpl", &models.TemplateData{})
 }
+
+func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "contact.page.tmpl", &models.TemplateData{})
+}
