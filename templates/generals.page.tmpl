@@ -24,8 +24,29 @@
       </div>
       <div class="row">
         <div class="col text-center">
-          <a href="/search-availablity" class="btn btn-success">Check Availbility</a>
+          <a id="btn_check-availablity" href="#!" class="btn btn-success">Check Availbility</a>
         </div>
       </div>
     </div>
 {{end}}
+
+{{define "js"}}
+    document.getElementById("btn_check-availablity").addEventListener("click", function () {
+      const html = `
+          <form id="check-availablity-form" action="" method="post" novalidate class="needs-validation">
+              <div class="form-row">
+                <div class="col">
+                  <div class="form-row row" id='reservation-dates-modal' id='reservation-dates'>
+                    <div class="col">
+                      <input id="start" disabled required class='form-control' type='text' name="start" placeholder='Arrival'>
+                    </div>
+                    <div class="col">
+                      <input id="end" disabled required class='form-control' type='text' name="end" placeholder='Departure'>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </form>`
+      attention.custom({msg: html, title: "Chose the dates"});
+    })
+  {{end}}

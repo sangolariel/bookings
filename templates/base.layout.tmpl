@@ -81,23 +81,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     -->
 
-  {{block "js" .}}
-
-  {{end}}
-
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
   'use strict'
 
   const attention = Prompt();
+
+  {{block "js" .}}
+
+  {{end}}
+
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.querySelectorAll('.needs-validation')
-
-  const elem = document.getElementById('reservation-dates');
-  const rangepicker = new DateRangePicker(elem, {
-    format: 'yyyy-mm-dd'
-  });
 
   function notify(type, msg) {
     notie.alert({
@@ -174,25 +170,6 @@
       custom,
     }
   }
-
-  document.getElementById('btn').addEventListener("click", function () {
-    const html = `
-        <form id="check-availablity-form" action="" method="post" novalidate class="needs-validation">
-            <div class="form-row">
-              <div class="col">
-                <div class="form-row row" id='reservation-dates-modal' id='reservation-dates'>
-                  <div class="col">
-                     <input id="start" disabled required class='form-control' type='text' name="start" placeholder='Arrival'>
-                  </div>
-                   <div class="col">
-                     <input id="end" disabled required class='form-control' type='text' name="end" placeholder='Departure'>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </form>`
-    attention.custom({msg: html, title: "Chose the dates"});
-  })
 
   // Loop over them and prevent submission
   Array.prototype.slice.call(forms)
