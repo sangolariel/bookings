@@ -5,24 +5,8 @@
       <div class="row justify-content-center">
         <div class="col-md-6">
           <h1 class="mt-5">Search for Availablity</h1>
-          <form action="" method="get" novalidate class="needs-validation">
-            <!-- <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="start_date" class="form-label">Starting Date</label>
-                  <input required type="date" class="form-control" id="start_date" name="start_date" aria-describedby="startDateHelp">
-                  <small id="startDateHelp" class="form-text text-muted">Enter your starting date in the form of YYYY-MM-DD</small>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="end_date" class="form-label">Ending Date</label>
-                  <input required type="date" class="form-control" id="end_date" name="end_date" aria-describedby="endDateHelp">
-                  <small id="endDateHelp" class="form-text text-muted">Enter your ending date in the form of YYYY-MM-DD</small>
-                </div>
-              </div>
-            </div> -->
-
+          <form action="/search-availablity" method="post" novalidate class="needs-validation">
+            <input type="hidden" name="csrf_token" value={{.CRSFSToken}}>
             <div class="form-row">
               <div class="col">
                 <div class="form-row row" id='reservation-dates'>
