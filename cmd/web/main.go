@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/sangolariel/bookings/pkg/config"
-	"github.com/sangolariel/bookings/pkg/handlers"
-	"github.com/sangolariel/bookings/pkg/render"
+	"github.com/sangolariel/bookings/internal/config"
+	"github.com/sangolariel/bookings/internal/handlers"
+	"github.com/sangolariel/bookings/internal/render"
 )
 
 const port = ":8080"

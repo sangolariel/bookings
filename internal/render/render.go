@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 
 	"github.com/justinas/nosurf"
-	"github.com/sangolariel/bookings/pkg/config"
-	"github.com/sangolariel/bookings/pkg/models"
+	"github.com/sangolariel/bookings/internal/config"
+	"github.com/sangolariel/bookings/internal/models"
 )
 
 var function = template.FuncMap{}

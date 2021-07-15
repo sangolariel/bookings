@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/sangolariel/bookings/pkg/config"
-	"github.com/sangolariel/bookings/pkg/models"
-	"github.com/sangolariel/bookings/pkg/render"
+	"github.com/sangolariel/bookings/internal/config"
+	"github.com/sangolariel/bookings/internal/models"
+	"github.com/sangolariel/bookings/internal/render"
 )
 
 var Repo *Repository
