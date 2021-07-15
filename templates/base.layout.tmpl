@@ -148,10 +148,9 @@
         backdrop: false,
         showCancelButton: true,
         willOpen: () => {
-          const elem = document.getElementById('reservation-dates-modal');
-            const rangepicker = new DateRangePicker(elem, {
-              format: 'yyyy-mm-dd'
-            });
+          if (params.willOpen) {
+            params.willOpen()
+          };
         },
         preConfirm: () => {
           return [
@@ -160,8 +159,9 @@
           ]
         },
         didOpen: () => {
-          document.getElementById("start").removeAttribute("disabled")
-          document.getElementById("end").removeAttribute("disabled")
+          if (params.didOpen) {
+            params.didOpen()
+          };
         }
       })
       if (result) {

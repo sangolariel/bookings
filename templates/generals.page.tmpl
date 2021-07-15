@@ -50,9 +50,25 @@
       attention.custom({
         msg: html, 
         title: "Chose the dates", 
+        willOpen: () => {
+          const elem = document.getElementById('reservation-dates-modal');
+            const rangepicker = new DateRangePicker(elem, {
+              format: 'yyyy-mm-dd'
+            });
+        },
+        didOpen: () => {
+          document.getElementById("start").removeAttribute("disabled")
+          document.getElementById("end").removeAttribute("disabled")
+        },
         callback: function (result){
-          console.log("Called")
-          fetch("/search-availablity-json")
+          const form = document.getElementById("check-availablity-form")
+          let formData = new FormData(form)
+          formData.append("csrf_token", "{{.CRSFSToken}}")
+
+          fetch("/search-availablity-json", {
+            method: 'post',
+            body: formData,
+          })
           .then(response => response.json())
           .then(data => {
             console.log(data)
