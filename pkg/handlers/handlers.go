@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/sangolariel/bookings/pkg/config"
@@ -65,6 +67,27 @@ func (m *Repository) PostAvailablity(w http.ResponseWriter, r *http.Request) {
 	end := r.Form.Get("end")
 	fmt.Printf("PostAvailablity %s and %s", start, end)
 	w.Write([]byte(start + " " + end))
+}
+
+type jsonResponse struct {
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
+}
+
+func (m *Repository) AvailablityJSON(w http.ResponseWriter, r *http.Request) {
+	resp := jsonResponse{
+		OK:      false,
+		Message: "Availablity",
+	}
+
+	out, err := json.MarshalIndent(resp, "", "    ")
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(out)
 }
 
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
