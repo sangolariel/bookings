@@ -47,6 +47,17 @@
                 </div>
               </div>
           </form>`
-      attention.custom({msg: html, title: "Chose the dates"});
+      attention.custom({
+        msg: html, 
+        title: "Chose the dates", 
+        callback: function (result){
+          console.log("Called")
+          fetch("/search-availablity-json")
+          .then(response => response.json())
+          .then(data => {
+            console.log(data)
+          })
+        }
+      });
     })
   {{end}}

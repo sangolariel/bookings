@@ -141,7 +141,7 @@
 
     async function custom (params) {
       const {title = '', msg = ''} = params;
-      const { value: formValues } = await Swal.fire({
+      const { value: result } = await Swal.fire({
         title,
         html: msg,
         focusConfirm: false,
@@ -164,8 +164,19 @@
           document.getElementById("end").removeAttribute("disabled")
         }
       })
-      if (formValues) {
-        Swal.fire(JSON.stringify(formValues))
+      if (result) {
+        if (result.dismiss !== Swal.DismissReason.cancel) {
+          if (result.value !== "") {
+            if (params.callback !== undefined) {
+              params.callback(result)
+            }
+          }
+          else {
+            params.callback(false)
+          }
+        } else {
+          params.callback(false)
+        }
       }
     }
     return {
