@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/sangolariel/bookings/internal/config"
+	"github.com/sangolariel/bookings/internal/forms"
 	"github.com/sangolariel/bookings/internal/models"
 	"github.com/sangolariel/bookings/internal/render"
 )
@@ -92,4 +93,14 @@ func (m *Repository) AvailablityJSON(w http.ResponseWriter, r *http.Request) {
 
 func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, r, "contact.page.tmpl", &models.TemplateData{})
+}
+
+func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("PostReservation"))
 }
