@@ -20,5 +20,10 @@ func New(data url.Values) *Form {
 func (f *Form) Has(field string, r *http.Request) bool {
 	x := r.Form.Get(field)
 
-	return x != ""
+	if x == "" {
+		f.Errors.Add(field, "This field can not be blank")
+		return false
+	} else {
+		return true
+	}
 }

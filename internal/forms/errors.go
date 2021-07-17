@@ -6,6 +6,10 @@ func (e errors) Add(field, message string) {
 	e[field] = append(e[field], message)
 }
 
+func (f *Form) Valid() bool {
+	return len(f.Errors) == 0
+}
+
 func (e errors) Get(field string) string {
 	es := e[field]
 	if len(es) == 0 {
