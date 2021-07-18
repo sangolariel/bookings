@@ -1,7 +1,7 @@
 package models
 
 type Reservation struct {
-	FirseName string
+	FirstName string
 	LastName  string
 	Email     string
 	Phone     string
