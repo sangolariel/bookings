@@ -99,10 +99,10 @@
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.querySelectorAll('.needs-validation')
 
-  function notify(type, msg) {
+  function notify(msg, type) {
     notie.alert({
-      type: type,
       text: msg,
+      type: type,
     })
   }
 
@@ -115,9 +115,21 @@
     })
   }
 
+  {{with .Error}}
+  notify("{{.}}", "error")
+  {{end}}
+
+  {{with .Flash}}
+  notify("{{.}}", "success")
+  {{end}}
+
+  {{with .Warning}}
+  notify("{{.}}", "warning")
+  {{end}}
+
   function Prompt () {
     const toast = (params) => {
-      const {icon = 'success', msg = '', position= 'top-end'} = params
+      const {icon = 'success', msg = '', positon= 'top-end'} = params
       const Toast = Swal.mixin({
       toast: true,
       position,
