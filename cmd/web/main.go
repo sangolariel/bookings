@@ -22,6 +22,24 @@ var session *scs.SessionManager
 
 func main() {
 
+	err := run()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Aplication open on port %s", port)
+
+	srv := &http.Server{
+		Addr:    port,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+	log.Fatal(err)
+}
+
+func run() error {
 	gob.Register(models.Reservation{})
 	//Env
 	app.InProduction = false
@@ -36,6 +54,7 @@ func main() {
 	tc, err := render.CreateTemplateCatche()
 	if err != nil {
 		log.Fatal("Can't create Template catche")
+		return err
 	}
 	app.TemplateCatche = tc
 	app.UseCatche = false
@@ -45,13 +64,5 @@ func main() {
 
 	render.NewTemplates(&app)
 
-	fmt.Printf("Aplication open on port %s", port)
-
-	srv := &http.Server{
-		Addr:    port,
-		Handler: routes(&app),
-	}
-
-	err = srv.ListenAndServe()
-	log.Fatal(err)
+	return nil
 }
