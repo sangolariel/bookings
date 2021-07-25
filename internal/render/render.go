@@ -2,6 +2,7 @@ package render
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -15,6 +16,8 @@ import (
 var function = template.FuncMap{}
 
 var app *config.AppConfig
+
+var pathToTemplates = "./templates"
 
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
 	td.Flash = app.Session.PopString(r.Context(), "flash")
@@ -53,7 +56,7 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 func CreateTemplateCatche() (map[string]*template.Template, error) {
 	myCatche := map[string]*template.Template{}
 
-	pages, err := filepath.Glob("./templates/*.page.tmpl")
+	pages, err := filepath.Glob(fmt.Sprintf("%s/*.page.tmpl", pathToTemplates))
 
 	if err != nil {
 		return myCatche, err
@@ -66,13 +69,13 @@ func CreateTemplateCatche() (map[string]*template.Template, error) {
 			return myCatche, err
 		}
 
-		matches, err := filepath.Glob("./templates/*.layout.tmpl")
+		matches, err := filepath.Glob(fmt.Sprintf("%s/*.layout.tmpl", pathToTemplates))
 		if err != nil {
 			return myCatche, err
 		}
 
 		if len(matches) > 0 {
-			ts, err := ts.ParseGlob("./templates/*.layout.tmpl")
+			ts, err := ts.ParseGlob(fmt.Sprintf("%s/*.layout.tmpl", pathToTemplates))
 			if err != nil {
 				return myCatche, err
 			}
