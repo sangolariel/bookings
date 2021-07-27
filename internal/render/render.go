@@ -2,6 +2,7 @@ package render
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html/template"
 	"log"
@@ -31,7 +32,7 @@ func NewTemplates(config *config.AppConfig) {
 	app = config
 }
 
-func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) error {
 	var tc map[string]*template.Template
 	if app.UseCatche {
 		tc = app.TemplateCatche
@@ -41,16 +42,26 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 
 	t, ok := tc[tmpl]
 	if !ok {
-		log.Fatal("Could not get a template from template catche")
+		return errors.New("could not get a template from catche")
 	}
 	buf := new(bytes.Buffer)
 
 	td = AddDefaultData(td, r)
 
-	_ = t.Execute(buf, td)
+	err := t.Execute(buf, td)
 
-	_, _ = buf.WriteTo(w)
+	if err != nil {
+		log.Fatal(err)
+	}
 
+	_, err = buf.WriteTo(w)
+
+	if err != nil {
+		log.Fatal(err)
+
+	}
+
+	return nil
 }
 
 func CreateTemplateCatche() (map[string]*template.Template, error) {

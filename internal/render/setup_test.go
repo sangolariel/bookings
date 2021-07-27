@@ -2,6 +2,7 @@ package render
 
 import (
 	"encoding/gob"
+	"net/http"
 	"os"
 	"testing"
 	"time"
@@ -18,16 +19,33 @@ func TestMain(m *testing.M) {
 
 	gob.Register(models.Reservation{})
 	//Env
-	app.InProduction = false
+	testApp.InProduction = false
 
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
 	session.Cookie.Secure = false
+	session.Cookie.SameSite = http.SameSiteLaxMode
 
-	app.Session = session
+	testApp.Session = session
 
 	app = &testApp
 
 	os.Exit(m.Run())
+}
+
+type myWriter struct{}
+
+func (tw *myWriter) Header() http.Header {
+	var h http.Header
+	return h
+}
+
+func (tw *myWriter) WriteHeader(i int) {
+}
+
+func (tw *myWriter) Write(b []byte) (int, error) {
+
+	length := len(b)
+	return length, nil
 }
