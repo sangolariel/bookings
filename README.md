@@ -13,7 +13,8 @@
 ## Run app
 
 ```
-go run cmd/web/*.go
+Mac/linux : ./run.sh
+Window: run.sh
 ```
 
 ## About soure code
