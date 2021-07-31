@@ -12,6 +12,8 @@ type AppConfig struct {
 	UseCatche      bool
 	TemplateCatche map[string]*template.Template
 	Info           *log.Logger
+	ErrorLog       *log.Logger
+	InfoLog        *log.Logger
 	InProduction   bool
 	Session        *scs.SessionManager
 }
