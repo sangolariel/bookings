@@ -17,7 +17,7 @@ Mac/linux : ./run.sh
 Window: run.sh
 ```
 
-##Soda CLI
+## Soda CLI
 
 ```
 soda = buffalo pop
