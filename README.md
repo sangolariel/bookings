@@ -17,6 +17,12 @@ Mac/linux : ./run.sh
 Window: run.sh
 ```
 
+##Soda CLI
+
+```
+soda = buffalo pop
+```
+
 ## About soure code
 
 - Uses go 1.16
