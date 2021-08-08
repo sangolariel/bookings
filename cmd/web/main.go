@@ -10,6 +10,7 @@ import (
 
 	"github.com/alexedwards/scs/v2"
 	"github.com/sangolariel/bookings/internal/config"
+	"github.com/sangolariel/bookings/internal/driver"
 	"github.com/sangolariel/bookings/internal/handlers"
 	"github.com/sangolariel/bookings/internal/helpers"
 	"github.com/sangolariel/bookings/internal/models"
@@ -27,11 +28,13 @@ var errorLog *log.Logger
 
 func main() {
 
-	err := run()
+	db, err := run()
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	defer db.SQL.Close()
 
 	fmt.Printf("Aplication open on port %s", port)
 
@@ -44,7 +47,7 @@ func main() {
 	log.Fatal(err)
 }
 
-func run() error {
+func run() (*driver.DB, error) {
 	gob.Register(models.Reservation{})
 	//Env
 	app.InProduction = false
@@ -62,19 +65,28 @@ func run() error {
 
 	app.Session = session
 
+	//connect to the db
+	log.Println("Connecting to Database ....")
+	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=bookings user=sangnguyen password=")
+	if err != nil {
+		log.Fatal("Can not conect to Database.")
+	}
+
+	log.Println("Connected to database")
+
 	tc, err := render.CreateTemplateCatche()
 	if err != nil {
 		log.Fatal("Can't create Template catche")
-		return err
+		return nil, err
 	}
 	app.TemplateCatche = tc
 	app.UseCatche = false
 
-	repo := handlers.NewRepository(&app)
+	repo := handlers.NewRepository(&app, db)
 	handlers.NewHandler(repo)
 	helpers.NewHelpers(&app)
 
 	render.NewTemplates(&app)
 
-	return nil
+	return db, nil
 }

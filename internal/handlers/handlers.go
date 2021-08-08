@@ -6,22 +6,27 @@ import (
 	"net/http"
 
 	"github.com/sangolariel/bookings/internal/config"
+	"github.com/sangolariel/bookings/internal/driver"
 	"github.com/sangolariel/bookings/internal/forms"
 	"github.com/sangolariel/bookings/internal/helpers"
 	"github.com/sangolariel/bookings/internal/models"
 	"github.com/sangolariel/bookings/internal/render"
+	"github.com/sangolariel/bookings/internal/repository"
+	"github.com/sangolariel/bookings/internal/repository/dbrepo"
 )
 
 var Repo *Repository
 
 type Repository struct {
 	App *config.AppConfig
+	DB  repository.DatabaseRepo
 }
 
 // NewRepository create a new repository
-func NewRepository(config *config.AppConfig) *Repository {
+func NewRepository(config *config.AppConfig, db *driver.DB) *Repository {
 	return &Repository{
 		App: config,
+		DB:  dbrepo.NewpostgresRepo(db.SQL, config),
 	}
 }
 

@@ -15,6 +15,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/justinas/nosurf"
 	"github.com/sangolariel/bookings/internal/config"
+	"github.com/sangolariel/bookings/internal/driver"
 	"github.com/sangolariel/bookings/internal/models"
 	"github.com/sangolariel/bookings/internal/render"
 )
@@ -52,7 +53,13 @@ func getRoutes() http.Handler {
 	app.TemplateCatche = tc
 	app.UseCatche = true
 
-	repo := NewRepository(&app)
+	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=bookings user=sangnguyen password=")
+
+	if err != nil {
+		log.Fatal("Can not conect to Database.")
+	}
+
+	repo := NewRepository(&app, db)
 	NewHandler(repo)
 
 	render.NewTemplates(&app)
