@@ -4,4 +4,5 @@ create_table("room_restrictions") {
   t.Column("end_date", "date", {})
   t.Column("room_id", "integer")
   t.Column("reservation_id", "integer")
+  t.Column("restriction_id", "integer")
 }
